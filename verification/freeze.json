@@ -1,0 +1,453 @@
+{
+  "time": "2026-11-12T22:40:09+08:00",
+  "task_id": "uf-20261112-new15-smtp",
+  "run_id": "uf-20261112-new15-smtp",
+  "uid": 125,
+  "workspace": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\sources\\smtp",
+  "artifact_directory": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\frozen-artifact",
+  "git_head_after_model": "0aef6a19bf3c43ebded54ee943aaacbff93d68bf",
+  "initial_sha": "0aef6a19bf3c43ebded54ee943aaacbff93d68bf",
+  "trajectory_file": "D:\\hc\\userFeedback\\cache\\runs\\uf-20261112-new15-smtp\\frozen\\trajectory-original.jsonl",
+  "trajectory_sha256": "03a82b9e96254c8f6ab0b5ba1602bbb18ed4b8602c708c4e6d28da3182b12cdc",
+  "session_ids": [
+    "188ec308-e7b7-41d2-ad4d-2652b98536ad"
+  ],
+  "prompt_ids": [
+    "7bd3048f-2169-402c-bcff-9aca52146cbf"
+  ],
+  "user_turns": 1,
+  "prompt_sha256": "db745118940ba1d99c197608785c9c4f645b01226e120bbe4b0d3db773cc5363",
+  "frozen_files": [
+    {
+      "path": ".codecov.yml",
+      "sha256": "78c41a36d056e76ba052e3388f908fe8a1003155b460888c5aeba778f8dd08e4",
+      "bytes": 42
+    },
+    {
+      "path": ".coveragerc",
+      "sha256": "66a10574fa3d3468655a74a22fb26f9cdbf7d969c495af89d184cf56c3d83be0",
+      "bytes": 169
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE/pull_request_template.md",
+      "sha256": "abab71066a397f9af8710051ec1399d8cda6d049212edfa1bfd381428e8371f7",
+      "bytes": 1470
+    },
+    {
+      "path": ".github/SECURITY.rst",
+      "sha256": "1f31ccbf3d50287241f06d29aca2c565acceda99eb38f49b7daa4913c96df363",
+      "bytes": 600
+    },
+    {
+      "path": ".github/dependabot.yml",
+      "sha256": "8885efdef62910b07a84df293bcf4548e071d51f70e89420fb4350e4850f9b67",
+      "bytes": 202
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "sha256": "abab71066a397f9af8710051ec1399d8cda6d049212edfa1bfd381428e8371f7",
+      "bytes": 1470
+    },
+    {
+      "path": ".github/workflows/auto-merge.yml",
+      "sha256": "1b7dd1f77aa75edbe5b8d38596ef04008cba0d39b467cd8b835a631d63dcfe4a",
+      "bytes": 608
+    },
+    {
+      "path": ".github/workflows/ci-cd.yml",
+      "sha256": "4e3ef4f6611d1d4ec0d14c48e270e5cb686cdbe71335c23cb0c0dd453df268f1",
+      "bytes": 4926
+    },
+    {
+      "path": ".github/workflows/codeql.yml",
+      "sha256": "82a0192aca88cc7686853809ad53e1cb18bfc4dc5eeead16f5eb7a88de43cf25",
+      "bytes": 853
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "fe401c239e96cb1d3ad83c2e7d1fe6ad4cab450c42a67a1aaee0a5fba1a5f14e",
+      "bytes": 364
+    },
+    {
+      "path": ".mypy.ini",
+      "sha256": "ff9ceb3d3a6482fd1f07705a9d04bd3280a291f68e3c16efe73e51028fddb416",
+      "bytes": 1285
+    },
+    {
+      "path": ".readthedocs.yml",
+      "sha256": "75e76da63fb3b1043bfaef2e197d20a50e2159ba04ab3d3bf885292ca0d73a08",
+      "bytes": 392
+    },
+    {
+      "path": "DESCRIPTION.rst",
+      "sha256": "30a16e3830491896d9bd1bf9636ffc1671397ea317370cad712b9906e0526007",
+      "bytes": 5087
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "49b69c7b787b35b7df9010aef6ece52fc91a26baba604604ec72d5db3986e6d3",
+      "bytes": 10121
+    },
+    {
+      "path": "MANIFEST.in",
+      "sha256": "dd2079439e45821c846978c21f69867e201523128711137e92130e32d0ce8869",
+      "bytes": 137
+    },
+    {
+      "path": "NOTICE",
+      "sha256": "4214a0d9106577cd4f0c1c8e0b04e980c6a8a3c2c5f4ebb0c6e25529caea39a9",
+      "bytes": 261
+    },
+    {
+      "path": "README.rst",
+      "sha256": "42fb18e9496a59b98ae52a5dfb5a5e6a8e262aa642bdd1e5a4ce90e800ae20fe",
+      "bytes": 13376
+    },
+    {
+      "path": "aiosmtpd/__init__.py",
+      "sha256": "56e86b29a099a1275b9308bda833ce5f1fbd47e914efb84844d84b16dccb9166",
+      "bytes": 633
+    },
+    {
+      "path": "aiosmtpd/__main__.py",
+      "sha256": "db62187cfd00ef305e3268fedf334f7204ef2c065e3a37a8b42c8946fa47dba0",
+      "bytes": 155
+    },
+    {
+      "path": "aiosmtpd/controller.py",
+      "sha256": "9ec696546d61b7d3b457ece10d78d852ac48649c44dee84d901cb50c724784bf",
+      "bytes": 18784
+    },
+    {
+      "path": "aiosmtpd/docs/.gitignore",
+      "sha256": "fde6e46547307ef7e718427de6b7e3d65c6804d77a104f59bed39cec5b1b7c51",
+      "bytes": 7
+    },
+    {
+      "path": "aiosmtpd/docs/Makefile",
+      "sha256": "08af18977790dba1b34ae0c52c2603bb9bd6c792bfddea9fd1606b473087ccaf",
+      "bytes": 6770
+    },
+    {
+      "path": "aiosmtpd/docs/NEWS.rst",
+      "sha256": "2d0b77faecdad93f6cfd172e98d32f4a05c58161920964474be044fb18651f56",
+      "bytes": 14163
+    },
+    {
+      "path": "aiosmtpd/docs/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "aiosmtpd/docs/_exts/autoprogramm.py",
+      "sha256": "9c323ed936db707648ad542d08ebd3d387d810698f7828977be8f2063868a21e",
+      "bytes": 11678
+    },
+    {
+      "path": "aiosmtpd/docs/_static/aiosmtpd.css",
+      "sha256": "dd35795feefe0711206c5c001c7fc54be0635f7860cc6d935940c044a6d44ac8",
+      "bytes": 1243
+    },
+    {
+      "path": "aiosmtpd/docs/auth.rst",
+      "sha256": "af75cc5095e08b0f05eea44630418c9faf996a6c390ee81ed5a760ab378eeadc",
+      "bytes": 7640
+    },
+    {
+      "path": "aiosmtpd/docs/cli.rst",
+      "sha256": "fa89dcbd8ab143648936c4160f45828352781ed41bcec919fb9b319736be744f",
+      "bytes": 1253
+    },
+    {
+      "path": "aiosmtpd/docs/concepts.rst",
+      "sha256": "a68a06b36757727d6d661a710d9008fb8e2dcf268f59cd03f832916e47b63cab",
+      "bytes": 5857
+    },
+    {
+      "path": "aiosmtpd/docs/conf.py",
+      "sha256": "70177a5c5ded2dda87887d6717bf202b3ed1ebfd6fc14d080960849fa3857fda",
+      "bytes": 11407
+    },
+    {
+      "path": "aiosmtpd/docs/controller.rst",
+      "sha256": "d2cd1be5f06670a4b3f38e623d3d868c5f4ba751d3619d6e2e2a86a120ab2961",
+      "bytes": 25179
+    },
+    {
+      "path": "aiosmtpd/docs/handlers.rst",
+      "sha256": "ca52cec76bec9a2903c446f37acdbcfdd7186f0f6d81ec6976443a76f9c7ee10",
+      "bytes": 15293
+    },
+    {
+      "path": "aiosmtpd/docs/index.rst",
+      "sha256": "82cd36df3b363525c2e915978c606714b023f567480d07e90f82529a95bca9f9",
+      "bytes": 312
+    },
+    {
+      "path": "aiosmtpd/docs/intro.rst",
+      "sha256": "f7fb7a7f56fc07d7595f9c373c72cdacfee7b91d4d462e8d0c847d616176a20e",
+      "bytes": 1864
+    },
+    {
+      "path": "aiosmtpd/docs/lmtp.rst",
+      "sha256": "d4a487f09ccf2594b70bcf055bcc45440f3b2cd572b6319a221b4999f7f71e05",
+      "bytes": 620
+    },
+    {
+      "path": "aiosmtpd/docs/manpage.rst",
+      "sha256": "ed1df1e26a2f25e04383d1e3a31dae2705422a44f5e1e3623a3b23fc79dbb304",
+      "bytes": 608
+    },
+    {
+      "path": "aiosmtpd/docs/migrating.rst",
+      "sha256": "b951c6f3de9ba325364f3da97054e32f07268b4520394b4b386fd4b1159df806",
+      "bytes": 2182
+    },
+    {
+      "path": "aiosmtpd/docs/proxyprotocol.rst",
+      "sha256": "244725b2fc1f2a5338c1242ef531f076b18484b015e05b952980a7941b1f1398",
+      "bytes": 17207
+    },
+    {
+      "path": "aiosmtpd/docs/requirements.txt",
+      "sha256": "e0fd64aa5a708fc524c1dd98ef093ceb3724ca13cefd215a791b71bb1b086f68",
+      "bytes": 132
+    },
+    {
+      "path": "aiosmtpd/docs/smtp.rst",
+      "sha256": "d78b4fa779b19233031058fceda55b110eafe00a8f27943ea79226a3a17aa8c2",
+      "bytes": 23270
+    },
+    {
+      "path": "aiosmtpd/docs/testing.rst",
+      "sha256": "337d0ea3de92af8475b2d1a188da850b3c0046446d54e20b5a92ed244de0881b",
+      "bytes": 5660
+    },
+    {
+      "path": "aiosmtpd/handlers.py",
+      "sha256": "c3836c8c65588dcdc5b155d32da0a52aa01f2957c2bc7c21352fe0cd16619383",
+      "bytes": 9603
+    },
+    {
+      "path": "aiosmtpd/lmtp.py",
+      "sha256": "7f2940129d5217cca4243de1ffa19ac022ab9668ef966bc3f6b6d7026f21b9a9",
+      "bytes": 724
+    },
+    {
+      "path": "aiosmtpd/main.py",
+      "sha256": "af59cd1a3cae390790c9512347c43b568377b2fde5e49850b5a14d37106d69fa",
+      "bytes": 10186
+    },
+    {
+      "path": "aiosmtpd/proxy_protocol.py",
+      "sha256": "3ae6ceb3a0cc152f8c3d17df0eccd8f797611a46f634cf88e57999eaaf7c6eb7",
+      "bytes": 17265
+    },
+    {
+      "path": "aiosmtpd/py.typed",
+      "sha256": "32224fdf51604bd25ee53518e9bf1dee0126ddbe935399a94fa4a21c68c1bb99",
+      "bytes": 68
+    },
+    {
+      "path": "aiosmtpd/qa/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "aiosmtpd/qa/test_0packaging.py",
+      "sha256": "ba9663258f1a6a194e31d15072f7be811651305d6f939ccc8457fdcc81494a61",
+      "bytes": 3484
+    },
+    {
+      "path": "aiosmtpd/qa/test_1testsuite.py",
+      "sha256": "d48ad16bbd3ca7b92b9072bf039776f1df539e9ea075491dc2adad76fd354af8",
+      "bytes": 3325
+    },
+    {
+      "path": "aiosmtpd/smtp.py",
+      "sha256": "f1608564fd59fbfde9c2b6ada4fce2876a07705e39695182a59e8237554f2cb9",
+      "bytes": 66878
+    },
+    {
+      "path": "aiosmtpd/testing/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "aiosmtpd/testing/helpers.py",
+      "sha256": "9da0d25d7df85250306b33cabec466172434cdc158280e32ba68345558a5f6fe",
+      "bytes": 2159
+    },
+    {
+      "path": "aiosmtpd/testing/statuscodes.py",
+      "sha256": "b17d1c84dcec5485166b5cb5c425aa81def5f86e3ae42c20b91c75635333b183",
+      "bytes": 7437
+    },
+    {
+      "path": "aiosmtpd/tests/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "aiosmtpd/tests/conftest.py",
+      "sha256": "f6371bb485374455c825ab248d798dd5ed7110761fe1ebbdf9bbb3dea222c384",
+      "bytes": 12104
+    },
+    {
+      "path": "aiosmtpd/tests/test_examples.py",
+      "sha256": "1083ee373727cc6414ac8f8854749cc59b72cddf06449ab54320a986788ac561",
+      "bytes": 8961
+    },
+    {
+      "path": "aiosmtpd/tests/test_handlers.py",
+      "sha256": "c040846732629fd307b6e2f91c0c81fdc970fed555284dbb83c56f471dcc2131",
+      "bytes": 34094
+    },
+    {
+      "path": "aiosmtpd/tests/test_lmtp.py",
+      "sha256": "2ea32757a2c3eed9e786ba0341cc2df2a4c17664f03a230e4813421d9161c36a",
+      "bytes": 1498
+    },
+    {
+      "path": "aiosmtpd/tests/test_main.py",
+      "sha256": "742448c15c839e9ed24a8abf33bc12ba5ea331429935048e4924f9df6ec13d20",
+      "bytes": 12304
+    },
+    {
+      "path": "aiosmtpd/tests/test_misc.py",
+      "sha256": "c584dec43df9a3a6726bfc0a525a3c573d2cf796baa2793037cffe57c07825c7",
+      "bytes": 1536
+    },
+    {
+      "path": "aiosmtpd/tests/test_proxyprotocol.py",
+      "sha256": "b6f58287e46766504e46c9058a4bfe3d29bb6b1691c55c44073ecf4bca6ef64d",
+      "bytes": 39929
+    },
+    {
+      "path": "aiosmtpd/tests/test_server.py",
+      "sha256": "75bdc65ee8ef7d4068f4b5581e0f48e3b31a23e44bf663b68104be3712dcf049",
+      "bytes": 23331
+    },
+    {
+      "path": "aiosmtpd/tests/test_smtp.py",
+      "sha256": "b761a80b54b9f39b81394430e1e56639dcf23122d30b05291149ec3ad7793bc3",
+      "bytes": 75063
+    },
+    {
+      "path": "aiosmtpd/tests/test_smtps.py",
+      "sha256": "6ea9198416d48187decff6daea59549756002aae602d2e84696c87a54ca00e4d",
+      "bytes": 1559
+    },
+    {
+      "path": "aiosmtpd/tests/test_smtpsmuggling.py",
+      "sha256": "ea8f92d09d710ed6fb04893c900ed18111d45179d3ad794b573a8f2b28e8afc9",
+      "bytes": 2842
+    },
+    {
+      "path": "aiosmtpd/tests/test_starttls.py",
+      "sha256": "8a78b2a386102719906bd886e93a3dfd7ea2d078fed29b3aa48489b226120ad6",
+      "bytes": 12557
+    },
+    {
+      "path": "aiosmtpd/tests/test_strict_starttls.py",
+      "sha256": "3a6188ba69865c2b9ef94280fdc6faea0f93c856be41cffe98eb4f6b6e22e73f",
+      "bytes": 24136
+    },
+    {
+      "path": "bandit.yml",
+      "sha256": "0d3b1cb08bc06dd9b3ef8412238afc63a868c15c69bea93f3d0243d47fc0dbdc",
+      "bytes": 8330
+    },
+    {
+      "path": "examples/authenticated_relayer/.gitignore",
+      "sha256": "ebc5e3bb33c58f777b1a00a3a29de36cfd045ea5ca70e7f2f74921587c07aa2c",
+      "bytes": 8
+    },
+    {
+      "path": "examples/authenticated_relayer/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "examples/authenticated_relayer/make_user_db.py",
+      "sha256": "b261b101e554c6570951df3c694cae67c43bbc268b5119576acf355a4235a5a5",
+      "bytes": 1123
+    },
+    {
+      "path": "examples/authenticated_relayer/requirements.txt",
+      "sha256": "1a3b98647e956f5f242bec80466e8770ef6f0de544701993a887ba11e027f4a4",
+      "bytes": 22
+    },
+    {
+      "path": "examples/authenticated_relayer/server.py",
+      "sha256": "f6f790d67178674209c2165390071b93423cbdb835946e2a61e9d280fcc9edab",
+      "bytes": 4638
+    },
+    {
+      "path": "examples/basic/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "examples/basic/client.py",
+      "sha256": "e88636a215fbccb9eb72b1cf6c06e101044216897167eb95c236fb9a32ea5f54",
+      "bytes": 281
+    },
+    {
+      "path": "examples/basic/server.py",
+      "sha256": "387bb5fc98847738b60a2a50cc71ae677d96ca317bc6f986bf5261021f702f0f",
+      "bytes": 610
+    },
+    {
+      "path": "housekeep.py",
+      "sha256": "c9db9d15927b9a87318114d8e1ebb0bc57b4369f905f59f631997d0b0479ad56",
+      "bytes": 7781
+    },
+    {
+      "path": "lgtm.yml",
+      "sha256": "2dfacba5eeebaebde92e9d1b4a92caa2869ff61de3af67a2f634443b439138b2",
+      "bytes": 357
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "5055b8811b033b0df9d5a20b6e112abe0b3414a4ad35c826f6bee1513bdaca50",
+      "bytes": 1851
+    },
+    {
+      "path": "pytest.ini",
+      "sha256": "dbc4d897ed0bd79fbf5d64a1be0d28e033fd0338a9903ec418e1ea5d02f08db0",
+      "bytes": 700
+    },
+    {
+      "path": "release.py",
+      "sha256": "b5968e15c8c20b7fc2aa30b67bd518eb077af5ab5c60dc1997dcaa77f5649994",
+      "bytes": 5799
+    },
+    {
+      "path": "requirements-dev.txt",
+      "sha256": "795dcc80a65e4c995291f15183c1caa1a2d108abc907ddf2992f6e487198653a",
+      "bytes": 467
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "eb13b3f07782e144e9091c70becdddfa808a8535e2d27544958336ff9efc55b6",
+      "bytes": 316
+    },
+    {
+      "path": "setup.cfg",
+      "sha256": "9a4cbff178de3e23fd5374de5219603fd7e31515c50c07077091e04e444b7890",
+      "bytes": 4672
+    },
+    {
+      "path": "setup.py",
+      "sha256": "843ac26c38a41abae578250bc0f9419194b320a0f67327d941037a4268f6cfe7",
+      "bytes": 38
+    },
+    {
+      "path": "tox.ini",
+      "sha256": "acc921dbf3573382c9e505afdd2c9754ed59697b6efc75721073a2268e515aac",
+      "bytes": 4625
+    }
+  ],
+  "no_postrun_product_changes": true
+}

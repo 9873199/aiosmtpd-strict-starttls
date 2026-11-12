@@ -1,0 +1,27 @@
+{
+  "time": "2026-11-12T22:42:03+08:00",
+  "argv": [
+    "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\tasks\\smtp\\env\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "-o",
+    "addopts=--strict-markers -rfEX",
+    "-p",
+    "no:cacheprovider",
+    "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\frozen-artifact\\aiosmtpd\\tests\\test_starttls.py",
+    "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\frozen-artifact\\aiosmtpd\\tests\\test_main.py",
+    "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\frozen-artifact\\aiosmtpd\\tests\\test_smtp.py",
+    "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\frozen-artifact\\aiosmtpd\\tests\\test_proxyprotocol.py",
+    "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\frozen-artifact\\aiosmtpd\\tests\\test_strict_starttls.py",
+    "--basetemp",
+    "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\verification\\tmp-upstream",
+    "--junitxml",
+    "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\verification\\upstream.xml"
+  ],
+  "cwd": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\frozen-artifact",
+  "exit_code": 1,
+  "stdout_log": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\verification\\upstream-regression.stdout.log",
+  "stderr_log": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\verification\\upstream-regression.stderr.log"
+}

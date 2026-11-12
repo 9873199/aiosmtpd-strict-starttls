@@ -1,0 +1,12 @@
+{
+  "time": "2026-11-12T22:48:51+08:00",
+  "status": "PRIMARY_REVIEW_PASSED_AWAITING_USER_REVIEW",
+  "reviewer": "Codex primary agent, AI-assisted",
+  "score": 3,
+  "score_basis": "Main STARTTLS smuggling boundary works and normal TLS remains usable, but explicit post-TLS EHLO-only requirement is bypassed by HELO. A visible protocol gap requiring a code change, not a broad failure; no mechanical pass-rate mapping.",
+  "observed_process_fact_verified": true,
+  "feedback_facts_locatable": true,
+  "tool_sync_and_resource_errors_excluded": true,
+  "official_project_acceptance": "NOT_CLAIMED",
+  "recording_75s_reviewed": true
+}

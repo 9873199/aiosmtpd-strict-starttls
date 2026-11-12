@@ -1,0 +1,27 @@
+{
+  "time": "2026-11-12T22:48:51+08:00",
+  "uid": 125,
+  "container": false,
+  "external_runtime_services": false,
+  "loopback_network": true,
+  "actual": {
+    "python": "3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]",
+    "executable": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\tasks\\smtp\\env\\Scripts\\python.exe",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "module": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\frozen-artifact\\aiosmtpd\\__init__.py"
+  },
+  "dependencies": "-e git+https://github.com/aio-libs/aiosmtpd.git@0aef6a19bf3c43ebded54ee943aaacbff93d68bf#egg=aiosmtpd\r\natpublic==9.0.0\r\nattrs==26.1.0\r\ncffi==2.1.1\r\ncolorama==0.4.6\r\ncryptography==50.0.2\r\nidna==3.20\r\niniconfig==2.3.1\r\npackaging==26.3\r\npluggy==1.7.0\r\npsutil==7.2.2\r\npycparser==3.12\r\nPygments==2.21.0\r\npytest==9.2.0\r\npytest-mock==3.17.0\r\ntrustme==1.2.1\r\n",
+  "source": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\frozen-artifact",
+  "frozen_import_verified": true,
+  "preparation": {
+    "time": "2026-11-12T21:24:28+08:00",
+    "status": "ENV_READY",
+    "source_path": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\sources\\smtp",
+    "python": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\tasks\\smtp\\env\\Scripts\\python.exe",
+    "baseline_evidence": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\tasks\\smtp\\baseline-r2.json",
+    "container": false,
+    "external_services": false,
+    "offline_loopback_tests": true,
+    "baseline_note": "Selected STARTTLS correctness regression; coverage-only project addopts excluded for this subset. No test assertions changed."
+  }
+}

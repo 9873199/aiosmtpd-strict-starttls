@@ -1,0 +1,36 @@
+Local SMTP connection established.
+Client: EHLO example.test
+Server: 250-DESKTOP-BPAMAV8
+250-SIZE 33554432
+250-8BITMIME
+250-STARTTLS
+250-AUTH LOGIN PLAIN
+250 HELP
+Client: STARTTLS
+Server: 220 Ready to start TLS
+TLS handshake completed.
+Client: MAIL FROM:<before-greeting@example.test>
+Server: 503 Error: send HELO first
+Client: EHLO example.test
+Server: 250-DESKTOP-BPAMAV8
+250-SIZE 33554432
+250-8BITMIME
+250-AUTH LOGIN PLAIN
+250 HELP
+Client: MAIL FROM:<alice@example.test>
+Server: 250 OK
+Client: RCPT TO:<bob@example.test>
+Server: 250 OK
+Client: DATA
+Server: 354 End data with <CR><LF>.<CR><LF>
+Client: Subject: Local example
+
+Hello
+.
+Server: 250 OK
+Observed handler events: [('MAIL', 'alice@example.test', True), ('RCPT', 'bob@example.test', True), ('DATA', b'Subject: Local example\r\n\r\nHello\r\n')]
+
+Checking cleartext commands sent with STARTTLS.
+('127.0.0.1', 60263) strict_starttls: 69 byte(s) of plaintext data already buffered before STARTTLS was acknowledged; refusing TLS
+Remaining server bytes: b''
+Observed handler events: []

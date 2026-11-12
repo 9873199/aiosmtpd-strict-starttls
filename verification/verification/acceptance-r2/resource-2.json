@@ -1,0 +1,23 @@
+{
+  "time": "2026-11-12T22:44:51+08:00",
+  "argv": [
+    "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\tasks\\smtp\\env\\Scripts\\python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-q",
+    "-o",
+    "addopts=",
+    "-p",
+    "no:cacheprovider",
+    "aiosmtpd/tests/test_proxyprotocol.py::TestGetV2::test_UNIX[1-fake_tlv]",
+    "--basetemp",
+    "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\verification\\acceptance-r2\\tmp-resource-2",
+    "--junitxml",
+    "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\verification\\acceptance-r2\\resource-2.xml"
+  ],
+  "cwd": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\frozen-artifact",
+  "exit_code": 0,
+  "stdout_log": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\verification\\acceptance-r2\\resource-2.stdout.log",
+  "stderr_log": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\verification\\acceptance-r2\\resource-2.stderr.log"
+}

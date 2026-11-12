@@ -1,0 +1,58 @@
+{
+  "time": "2026-11-12T22:48:51+08:00",
+  "uid": 125,
+  "frozen_commit": "021d27ce0dcf407f47808614b2234851532c4e24",
+  "trace_sha256": "03a82b9e96254c8f6ab0b5ba1602bbb18ed4b8602c708c4e6d28da3182b12cdc",
+  "native_lines": {
+    "initial_failed_smuggling_test": 304,
+    "observed_handler_after_cancel": 327,
+    "added_loop_guard": 343,
+    "late_removed_redundant_session_reset": 724,
+    "final_consolidated_70_pass": 805,
+    "final_claim": 808
+  },
+  "product": {
+    "source": "aiosmtpd/smtp.py",
+    "anchors": {
+      "helo": 889,
+      "mail": 1347,
+      "ehlo_check": 860,
+      "starttls": 970,
+      "connection_made": 512,
+      "abort": 633
+    },
+    "confirmed_defect": {
+      "trigger": "EHLO -> STARTTLS -> TLS handshake -> HELO -> MAIL FROM",
+      "actual": "250 to HELO and 250 to MAIL; handler MAIL event reached",
+      "expected": "Reject MAIL until a fresh EHLO",
+      "cause": "smtp_HELO sets session.host_name; check_helo_needed only checks host_name for MAIL. No strict post-TLS EHLO-only state is implemented.",
+      "independent_test": "verification/acceptance-r2/test_smtp_boundary.py::test_helo_cannot_replace_required_post_tls_ehlo"
+    },
+    "verified_working": [
+      "Normal TLS delivery in strict/disabled/default modes",
+      "Prebuffered same-packet/split/transition cleartext closes without handler calls",
+      "Pre-TLS authentication and envelope cleared after a real NOOP barrier",
+      "MAIL/AUTH/RCPT without any new greeting rejected",
+      "Invalid ClientHello/disconnect/cancel/timeout cannot resume plaintext",
+      "Prebuffered password is absent from captured logs",
+      "Controller forwards option"
+    ]
+  },
+  "excluded_tool_environment_errors": [
+    {
+      "source": "verification/test_smtp_boundary.py",
+      "cause": "Unsynchronized direct server-object inspection; fixed with real NOOP reply barrier in revision 2, not a model defect"
+    },
+    {
+      "source": "verification/upstream-regression.stdout.log",
+      "result": "471 passed, 5 skipped, 4 errors",
+      "cause": "Three distinct resource-failed setup nodes; all three pass isolated, one produced an additional teardown warning",
+      "rechecks": [
+        "verification/acceptance-r2/resource-1.json",
+        "verification/acceptance-r2/resource-2.json",
+        "verification/acceptance-r2/resource-3.json"
+      ]
+    }
+  ],
+  "no_product_changes_after_freeze": true
+}

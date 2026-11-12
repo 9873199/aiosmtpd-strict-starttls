@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="1.194" timestamp="2026-11-12T22:44:54.634629+08:00" hostname="DESKTOP-BPAMAV8"><testcase classname="aiosmtpd.tests.test_proxyprotocol.TestWithController" name="test_incomplete[v2]" time="0.948" /></testsuite></testsuites>

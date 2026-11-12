@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="17" time="19.276" timestamp="2026-11-12T22:44:23.646537+08:00" hostname="DESKTOP-BPAMAV8"><testcase classname="evaluation.uf-20261112-new15-smtp.verification.acceptance-r2.test_smtp_boundary" name="test_normal_tls_and_delivery[True]" time="1.503" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.acceptance-r2.test_smtp_boundary" name="test_normal_tls_and_delivery[False]" time="1.036" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.acceptance-r2.test_smtp_boundary" name="test_normal_tls_and_delivery[None]" time="1.028" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.acceptance-r2.test_smtp_boundary" name="test_prebuffered_cleartext_is_never_replayed[same-packet]" time="1.030" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.acceptance-r2.test_smtp_boundary" name="test_prebuffered_cleartext_is_never_replayed[split-command]" time="1.270" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.acceptance-r2.test_smtp_boundary" name="test_prebuffered_cleartext_is_never_replayed[during-transition]" time="1.026" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.acceptance-r2.test_smtp_boundary" name="test_tls_requires_fresh_ehlo[MAIL FROM:&lt;alice@example.test&gt;]" time="1.005" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.acceptance-r2.test_smtp_boundary" name="test_tls_requires_fresh_ehlo[AUTH PLAIN AGFsaWNlAHBhc3M=]" time="1.040" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.acceptance-r2.test_smtp_boundary" name="test_tls_requires_fresh_ehlo[RCPT TO:&lt;bob@example.test&gt;]" time="1.020" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.acceptance-r2.test_smtp_boundary" name="test_tls_discards_auth_and_pending_envelope" time="1.042" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.acceptance-r2.test_smtp_boundary" name="test_helo_cannot_replace_required_post_tls_ehlo" time="1.028"><failure message="assert 250 &gt;= 500">def test_helo_cannot_replace_required_post_tls_ehlo():
+     async def scenario():
+      async with server() as (r,w,h,p,c,_):
+       await ehlo(r,w);await upgrade(r,w,c)
+       assert (await command(r,w,b'HELO example.test'))[0]==250
+       assert (await command(r,w,b'MAIL FROM:&lt;alice@example.test&gt;'))[0]&gt;=500
+       assert h.events==[]
+       await ehlo(r,w)
+       assert (await command(r,w,b'MAIL FROM:&lt;alice@example.test&gt;'))[0]==250
+&gt;    asyncio.run(scenario())
+
+..\verification\acceptance-r2\test_smtp_boundary.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    async def scenario():
+     async with server() as (r,w,h,p,c,_):
+      await ehlo(r,w);await upgrade(r,w,c)
+      assert (await command(r,w,b'HELO example.test'))[0]==250
+&gt;     assert (await command(r,w,b'MAIL FROM:&lt;alice@example.test&gt;'))[0]&gt;=500
+E     assert 250 &gt;= 500
+
+..\verification\acceptance-r2\test_smtp_boundary.py:122: AssertionError</failure></testcase><testcase classname="evaluation.uf-20261112-new15-smtp.verification.acceptance-r2.test_smtp_boundary" name="test_prebuffered_auth_is_not_logged" time="1.019" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.acceptance-r2.test_smtp_boundary" name="test_failed_handshake_cannot_resume_plain_smtp[invalid-clienthello]" time="1.034" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.acceptance-r2.test_smtp_boundary" name="test_failed_handshake_cannot_resume_plain_smtp[disconnect]" time="1.071" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.acceptance-r2.test_smtp_boundary" name="test_failed_handshake_cannot_resume_plain_smtp[cancel]" time="1.022" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.acceptance-r2.test_smtp_boundary" name="test_failed_handshake_cannot_resume_plain_smtp[timeout]" time="1.482" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.acceptance-r2.test_smtp_boundary" name="test_controller_forwards_explicit_option" time="0.921" /></testsuite></testsuites>

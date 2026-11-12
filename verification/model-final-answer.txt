@@ -1,0 +1,33 @@
+全部通过（70 项）。实现完成。下面是总结。
+
+## 实现总结
+
+### 核心改动 `aiosmtpd/smtp.py`（接入现有 `SMTP` 类）
+
+新增**显式开启**的 `strict_starttls: bool = False` 关键字参数，围绕 STARTTLS 边界做了三层防护：
+
+1. **切换前检查**（`smtp_STARTTLS`）：发 `220 Ready to start TLS` 之前先看 `StreamReader._buffer`，严格模式下若已预读到明文（同一段里塞进来的 MAIL/RCPT/AUTH），直接 `_abort_tls_violation()` 结束连接，**不发 220、不建 SSL**。
+2. **握手完成回调检查**（`connection_made` 的 STARTTLS 分支）：覆盖"预检查之后、SSL 接管之前"这段更窄的竞态——握手成功回调时若缓冲仍有明文，同样中止。缓冲按 RFC 3207 原有逻辑 `clear()`，**绝不重新喂给 SMTP 或 OpenSSL**。
+3. **命令循环守卫标志 `_tls_violation_close`**（关键修复）：实测发现仅 `task.cancel()` 不够——`readuntil()` 对已缓冲的行会**不挂起直接返回**，`CancelledError` 落地前流水线里的 MAIL/RCPT 仍会被分发（这正是走私路径）。守卫标志让命令循环在每次迭代顶部直接 `break`，任何 AUTH/信封/DATA 处理器都不会被调用。
+
+握手**取消/超时/失败**走既有 `TLSSetupException → transport.close() + connection_lost()`，不会留下还能收命令的明文连接，也不触发投递。握手成功后的 EHLO/认证/事务作废沿用类里原本就有的 RFC 3207 §4.2 重置（`connection_made` 顶部新建 `Session` + RSET），并由测试逐条验证。关闭时只记录**字节数**，不记录内容。
+
+### Controller 与 CLI 传递
+- `Controller` 本就把额外 `**kwargs` 透传进 `SMTP_kwargs`，所以直接 `Controller(handler, tls_context=ctx, strict_starttls=True)` 即可（有测试断言透传）。
+- CLI 增加 `--strict-starttls`（`main.py`），manpage 由 `autoprogramm` 自动生成。
+- 文档写入 `docs/smtp.rst`（参数说明 + "Strict STARTTLS" 叙事段 + Controller 示例），`NEWS.rst` 加条目。
+
+### 测试 `aiosmtpd/tests/test_strict_starttls.py`（13 项，回环 + trustme 临时证书）
+用原始 socket 精确控制**服务端实际收到的字节**，成功与否只看 `RecordingHandler` 记录的 AUTH/MAIL/RCPT/DATA 事件，不依赖日志：
+- 流水线预读明文被丢弃、无任何处理器被调用
+- 220 后多段明文 → 无法完成握手、连接中止
+- 正常握手后状态全重置、必须重新 EHLO；完整 TLS 内事务正常投递
+- 标准 `smtplib` 客户端流程照常工作
+- TLS 后不重新 EHLO → MAIL/RCPT/AUTH/DATA 全 503
+- 垃圾 ClientHello（握手失败）、STARTTLS 后 RST 消失（握手取消）
+- 口令即使在 DEBUG 级捕获下也不出现在日志
+- 关闭选项时保留原有兼容行为
+- 另含两个 mock-transport 单元测试，确定性地覆盖真实失败握手到不了的 `connection_made` 分支
+
+### 测试结果
+`test_smtp`(280)、`test_starttls`、`test_strict_starttls`(13)、`test_lmtp`、`test_smtpsmuggling`、`test_smtps`、`test_main`、`test_proxyprotocol` 等均通过。运行中偶发的 `WinError 10055` 是本沙箱临时端口池耗尽（仅在大批量连跑 setup 阶段出现），单独重跑即通过，与改动无关。

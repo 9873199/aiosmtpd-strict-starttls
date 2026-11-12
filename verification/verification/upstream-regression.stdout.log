@@ -1,0 +1,331 @@
+.............................sssss...................................... [ 15%]
+........................................................................ [ 30%]
+........................................................................ [ 45%]
+.......................................E................................ [ 60%]
+........................................................................ [ 75%]
+........................................................................ [ 90%]
+........EE....................E.................                         [100%]
+=================================== ERRORS ====================================
+________ ERROR at setup of TestAuthMechanisms.test_plain1_bad_password ________
+
+get_controller = <function get_controller.<locals>.getter at 0x00000276FEECD900>
+
+    @pytest.fixture
+    def auth_peeker_controller(
+        get_controller: Callable[..., Controller]
+    ) -> Generator[Controller, None, None]:
+        handler = PeekerHandler()
+>       controller = get_controller(
+            handler,
+            decode_data=True,
+            enable_SMTPUTF8=True,
+            auth_require_tls=False,
+            auth_callback=handler.authcallback,
+            auth_exclude_mechanism=["DONT"],
+        )
+
+aiosmtpd\tests\test_smtp.py:324: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+aiosmtpd\tests\conftest.py:149: in getter
+    return class_(
+aiosmtpd\controller.py:390: in __init__
+    super().__init__(
+aiosmtpd\controller.py:211: in __init__
+    super().__init__(
+aiosmtpd\controller.py:129: in __init__
+    self.loop = asyncio.new_event_loop()
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\events.py:844: in new_event_loop
+    return _get_event_loop_policy().new_event_loop()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\events.py:732: in new_event_loop
+    return self._loop_factory()
+           ^^^^^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\windows_events.py:316: in __init__
+    super().__init__(proactor)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\proactor_events.py:639: in __init__
+    self._make_self_pipe()
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\proactor_events.py:786: in _make_self_pipe
+    self._ssock, self._csock = socket.socketpair()
+                               ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+family = <AddressFamily.AF_INET: 2>, type = <SocketKind.SOCK_STREAM: 1>
+proto = 0
+
+    def _fallback_socketpair(family=AF_INET, type=SOCK_STREAM, proto=0):
+        if family == AF_INET:
+            host = _LOCALHOST
+        elif family == AF_INET6:
+            host = _LOCALHOST_V6
+        else:
+            raise ValueError("Only AF_INET and AF_INET6 socket address families "
+                             "are supported")
+        if type != SOCK_STREAM:
+            raise ValueError("Only SOCK_STREAM socket type is supported")
+        if proto != 0:
+            raise ValueError("Only protocol zero is supported")
+    
+        # We create a connected TCP socket. Note the trick with
+        # setblocking(False) that prevents us from having to create a thread.
+        lsock = socket(family, type, proto)
+        try:
+            lsock.bind((host, 0))
+            lsock.listen()
+            # On IPv6, ignore flow_info and scope_id
+            addr, port = lsock.getsockname()[:2]
+            csock = socket(family, type, proto)
+            try:
+                csock.setblocking(False)
+                try:
+>                   csock.connect((addr, port))
+E                   OSError: [WinError 10055] 由于系统缓冲区空间不足或队列已满，不能执行套接字上的操作。
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\socket.py:629: OSError
+______________ ERROR at setup of TestGetV2.test_UNIX[1-fake_tlv] ______________
+
+    @pytest.fixture
+    def temp_event_loop() -> Generator[asyncio.AbstractEventLoop, None, None]:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            try:
+                default_loop = asyncio.get_event_loop()
+            except (DeprecationWarning, RuntimeError):
+                default_loop = None
+>       new_loop = asyncio.new_event_loop()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+
+aiosmtpd\tests\conftest.py:208: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\events.py:844: in new_event_loop
+    return _get_event_loop_policy().new_event_loop()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\events.py:732: in new_event_loop
+    return self._loop_factory()
+           ^^^^^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\windows_events.py:316: in __init__
+    super().__init__(proactor)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\proactor_events.py:639: in __init__
+    self._make_self_pipe()
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\proactor_events.py:786: in _make_self_pipe
+    self._ssock, self._csock = socket.socketpair()
+                               ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+family = <AddressFamily.AF_INET: 2>, type = <SocketKind.SOCK_STREAM: 1>
+proto = 0
+
+    def _fallback_socketpair(family=AF_INET, type=SOCK_STREAM, proto=0):
+        if family == AF_INET:
+            host = _LOCALHOST
+        elif family == AF_INET6:
+            host = _LOCALHOST_V6
+        else:
+            raise ValueError("Only AF_INET and AF_INET6 socket address families "
+                             "are supported")
+        if type != SOCK_STREAM:
+            raise ValueError("Only SOCK_STREAM socket type is supported")
+        if proto != 0:
+            raise ValueError("Only protocol zero is supported")
+    
+        # We create a connected TCP socket. Note the trick with
+        # setblocking(False) that prevents us from having to create a thread.
+        lsock = socket(family, type, proto)
+        try:
+>           lsock.bind((host, 0))
+E           OSError: [WinError 10055] 由于系统缓冲区空间不足或队列已满，不能执行套接字上的操作。
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\socket.py:621: OSError
+____________ ERROR at teardown of TestGetV2.test_UNIX[1-fake_tlv] _____________
+
+self = <ProactorEventLoop running=False closed=False debug=False>
+_warn = <built-in function warn>
+
+    def __del__(self, _warn=warnings.warn):
+        if not self.is_closed():
+            _warn(f"unclosed event loop {self!r}", ResourceWarning, source=self)
+            if not self.is_running():
+>               self.close()
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:760: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\proactor_events.py:696: in close
+    self._close_self_pipe()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <ProactorEventLoop running=False closed=False debug=False>
+
+    def _close_self_pipe(self):
+        if self._self_reading_future is not None:
+            self._self_reading_future.cancel()
+            self._self_reading_future = None
+>       self._ssock.close()
+        ^^^^^^^^^^^
+E       AttributeError: 'ProactorEventLoop' object has no attribute '_ssock'
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\proactor_events.py:778: AttributeError
+
+The above exception was the direct cause of the following exception:
+
+cls = <class '_pytest.runner.CallInfo'>
+func = <function call_and_report.<locals>.<lambda> at 0x00000276FEBCFAB0>
+when = 'teardown'
+reraise = (<class '_pytest.outcomes.Exit'>, <class 'KeyboardInterrupt'>)
+
+    @classmethod
+    def from_call(
+        cls,
+        func: Callable[[], TResult],
+        when: Literal["collect", "setup", "call", "teardown"],
+        reraise: type[BaseException] | tuple[type[BaseException], ...] | None = None,
+    ) -> CallInfo[TResult]:
+        """Call func, wrapping the result in a CallInfo.
+    
+        :param func:
+            The function to call. Called without arguments.
+        :type func: Callable[[], _pytest.runner.TResult]
+        :param when:
+            The phase in which the function is called.
+        :param reraise:
+            Exception or exceptions that shall propagate if raised by the
+            function, instead of being wrapped in the CallInfo.
+        """
+        excinfo = None
+        instant = timing.Instant()
+        try:
+>           result: TResult | None = func()
+                                     ^^^^^^
+
+..\..\..\tasks\smtp\env\Lib\site-packages\_pytest\runner.py:361: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\tasks\smtp\env\Lib\site-packages\_pytest\runner.py:250: in <lambda>
+    lambda: runtest_hook(item=item, **kwds),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\tasks\smtp\env\Lib\site-packages\pluggy\_caller.py:197: in __call__
+    return self._hookexec(
+..\..\..\tasks\smtp\env\Lib\site-packages\pluggy\_manager.py:183: in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\tasks\smtp\env\Lib\site-packages\_pytest\logging.py:886: in pytest_runtest_teardown
+    yield
+..\..\..\tasks\smtp\env\Lib\site-packages\_pytest\capture.py:911: in pytest_runtest_teardown
+    return (yield)
+            ^^^^^
+..\..\..\tasks\smtp\env\Lib\site-packages\_pytest\unraisableexception.py:184: in pytest_runtest_teardown
+    collect_unraisable(item.config)
+..\..\..\tasks\smtp\env\Lib\site-packages\_pytest\unraisableexception.py:75: in collect_unraisable
+    raise errors[0]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+config = <_pytest.config.Config object at 0x00000276FAD46E40>
+
+    def collect_unraisable(config: Config) -> None:
+        pop_unraisable = config.stash[unraisable_exceptions].pop
+        errors: list[pytest.PytestUnraisableExceptionWarning | RuntimeError] = []
+        meta = None
+        hook_error = None
+        try:
+            while True:
+                try:
+                    meta = pop_unraisable()
+                except IndexError:
+                    break
+    
+                if isinstance(meta, BaseException):
+                    hook_error = RuntimeError("Failed to process unraisable exception")
+                    hook_error.__cause__ = meta
+                    errors.append(hook_error)
+                    continue
+    
+                msg = meta.msg
+                try:
+>                   warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+E                   pytest.PytestUnraisableExceptionWarning: Exception ignored while calling deallocator <function BaseEventLoop.__del__ at 0x00000276FC96FD70>: None
+
+..\..\..\tasks\smtp\env\Lib\site-packages\_pytest\unraisableexception.py:63: PytestUnraisableExceptionWarning
+__________ ERROR at setup of TestWithController.test_incomplete[v2] ___________
+
+get_handler = <function get_handler.<locals>.getter at 0x00000276FE90FB60>
+get_controller = <function get_controller.<locals>.getter at 0x00000276FE90D900>
+
+    @pytest.fixture
+    def plain_controller(
+        get_handler: Callable, get_controller: Callable
+    ) -> Generator[Controller, None, None]:
+        """
+        Returns a Controller that, by default, gets invoked with no optional args.
+        Hence the moniker "plain".
+    
+        Internally uses the :fixture:`get_controller` and :fixture:`get_handler` fixtures,
+        so optional args/kwargs can be specified for the Controller and the handler
+        via the :func:`controller_data` and :func:`handler_data` markers,
+        respectively.
+        """
+        handler = get_handler()
+>       controller = get_controller(handler)
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+
+aiosmtpd\tests\conftest.py:245: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+aiosmtpd\tests\conftest.py:149: in getter
+    return class_(
+aiosmtpd\controller.py:390: in __init__
+    super().__init__(
+aiosmtpd\controller.py:211: in __init__
+    super().__init__(
+aiosmtpd\controller.py:129: in __init__
+    self.loop = asyncio.new_event_loop()
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\events.py:844: in new_event_loop
+    return _get_event_loop_policy().new_event_loop()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\events.py:732: in new_event_loop
+    return self._loop_factory()
+           ^^^^^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\windows_events.py:316: in __init__
+    super().__init__(proactor)
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\proactor_events.py:639: in __init__
+    self._make_self_pipe()
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\proactor_events.py:786: in _make_self_pipe
+    self._ssock, self._csock = socket.socketpair()
+                               ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+family = <AddressFamily.AF_INET: 2>, type = <SocketKind.SOCK_STREAM: 1>
+proto = 0
+
+    def _fallback_socketpair(family=AF_INET, type=SOCK_STREAM, proto=0):
+        if family == AF_INET:
+            host = _LOCALHOST
+        elif family == AF_INET6:
+            host = _LOCALHOST_V6
+        else:
+            raise ValueError("Only AF_INET and AF_INET6 socket address families "
+                             "are supported")
+        if type != SOCK_STREAM:
+            raise ValueError("Only SOCK_STREAM socket type is supported")
+        if proto != 0:
+            raise ValueError("Only protocol zero is supported")
+    
+        # We create a connected TCP socket. Note the trick with
+        # setblocking(False) that prevents us from having to create a thread.
+        lsock = socket(family, type, proto)
+        try:
+            lsock.bind((host, 0))
+            lsock.listen()
+            # On IPv6, ignore flow_info and scope_id
+            addr, port = lsock.getsockname()[:2]
+            csock = socket(family, type, proto)
+            try:
+                csock.setblocking(False)
+                try:
+>                   csock.connect((addr, port))
+E                   OSError: [WinError 10055] 由于系统缓冲区空间不足或队列已满，不能执行套接字上的操作。
+
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\socket.py:629: OSError
+=========================== short test summary info ===========================
+ERROR aiosmtpd/tests/test_smtp.py::TestAuthMechanisms::test_plain1_bad_password
+ERROR aiosmtpd/tests/test_proxyprotocol.py::TestGetV2::test_UNIX[1-fake_tlv]
+ERROR aiosmtpd/tests/test_proxyprotocol.py::TestGetV2::test_UNIX[1-fake_tlv]
+ERROR aiosmtpd/tests/test_proxyprotocol.py::TestWithController::test_incomplete[v2]
+471 passed, 5 skipped, 4 errors in 53.23s

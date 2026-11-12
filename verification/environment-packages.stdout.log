@@ -1,0 +1,16 @@
+-e git+https://github.com/aio-libs/aiosmtpd.git@0aef6a19bf3c43ebded54ee943aaacbff93d68bf#egg=aiosmtpd
+atpublic==9.0.0
+attrs==26.1.0
+cffi==2.1.1
+colorama==0.4.6
+cryptography==50.0.2
+idna==3.20
+iniconfig==2.3.1
+packaging==26.3
+pluggy==1.7.0
+psutil==7.2.2
+pycparser==3.12
+Pygments==2.21.0
+pytest==9.2.0
+pytest-mock==3.17.0
+trustme==1.2.1

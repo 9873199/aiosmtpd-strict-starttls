@@ -1,0 +1,39 @@
+..........F......                                                        [100%]
+================================== FAILURES ===================================
+_______________ test_helo_cannot_replace_required_post_tls_ehlo _______________
+
+    def test_helo_cannot_replace_required_post_tls_ehlo():
+     async def scenario():
+      async with server() as (r,w,h,p,c,_):
+       await ehlo(r,w);await upgrade(r,w,c)
+       assert (await command(r,w,b'HELO example.test'))[0]==250
+       assert (await command(r,w,b'MAIL FROM:<alice@example.test>'))[0]>=500
+       assert h.events==[]
+       await ehlo(r,w)
+       assert (await command(r,w,b'MAIL FROM:<alice@example.test>'))[0]==250
+>    asyncio.run(scenario())
+
+..\verification\acceptance-r2\test_smtp_boundary.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    async def scenario():
+     async with server() as (r,w,h,p,c,_):
+      await ehlo(r,w);await upgrade(r,w,c)
+      assert (await command(r,w,b'HELO example.test'))[0]==250
+>     assert (await command(r,w,b'MAIL FROM:<alice@example.test>'))[0]>=500
+E     assert 250 >= 500
+
+..\verification\acceptance-r2\test_smtp_boundary.py:122: AssertionError
+=========================== short test summary info ===========================
+FAILED ..\verification\acceptance-r2\test_smtp_boundary.py::test_helo_cannot_replace_required_post_tls_ehlo
+1 failed, 16 passed in 19.33s

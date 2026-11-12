@@ -1,0 +1,7 @@
+{
+  "time": "2026-11-12T22:44:21+08:00",
+  "reason": "Direct server-object inspection immediately after client start_tls can run before the server handshake callback. Add a real NOOP/reply barrier before observing state. No EHLO/auth/mail is inserted and no product source is modified.",
+  "original_fixture_sha256": "9d98d074536818f66f2331060be1d68443b103364bc681b898dcfaa9c370b880",
+  "revised_fixture_sha256": "d0a3ea7f09c580f4cf67f1523034b0e57c066208f858d2f753f411157b2ec06a",
+  "original_failures_preserved": true
+}

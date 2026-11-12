@@ -1,0 +1,85 @@
+.........FF......                                                        [100%]
+================================== FAILURES ===================================
+_________________ test_tls_discards_auth_and_pending_envelope _________________
+
+    def test_tls_discards_auth_and_pending_envelope():
+     async def scenario():
+      async with server() as (r,w,h,p,c,_):
+       await ehlo(r,w)
+       assert (await command(r,w,b'AUTH PLAIN AGFsaWNlAHBhc3M='))[0]==235
+       assert (await command(r,w,b'MAIL FROM:<old@example.test>'))[0]==250
+       assert (await command(r,w,b'RCPT TO:<old-target@example.test>'))[0]==250
+       await upgrade(r,w,c)
+       assert p.session.authenticated is not True and p.session.auth_data is None
+       assert not p.session.host_name and not p.envelope.mail_from and not p.envelope.rcpt_tos
+       await ehlo(r,w)
+       assert (await command(r,w,b'RCPT TO:<new@example.test>'))[0]==503
+       assert not any(e[0]=='DATA' for e in h.events)
+>    asyncio.run(scenario())
+
+..\verification\test_smtp_boundary.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    async def scenario():
+     async with server() as (r,w,h,p,c,_):
+      await ehlo(r,w)
+      assert (await command(r,w,b'AUTH PLAIN AGFsaWNlAHBhc3M='))[0]==235
+      assert (await command(r,w,b'MAIL FROM:<old@example.test>'))[0]==250
+      assert (await command(r,w,b'RCPT TO:<old-target@example.test>'))[0]==250
+      await upgrade(r,w,c)
+>     assert p.session.authenticated is not True and p.session.auth_data is None
+E     assert (True is not True)
+E      +  where True = <aiosmtpd.smtp.Session object at 0x0000019F2A62E990>.authenticated
+E      +    where <aiosmtpd.smtp.Session object at 0x0000019F2A62E990> = <test_smtp_boundary.server.<locals>.Protocol object at 0x0000019F2A6163C0>.session
+
+..\verification\test_smtp_boundary.py:108: AssertionError
+------------------------------ Captured log call ------------------------------
+WARNING  mail.log:smtp.py:191 Session.login_data is deprecated and will be removed in version 2.0
+_______________ test_helo_cannot_replace_required_post_tls_ehlo _______________
+
+    def test_helo_cannot_replace_required_post_tls_ehlo():
+     async def scenario():
+      async with server() as (r,w,h,p,c,_):
+       await ehlo(r,w);await upgrade(r,w,c)
+       assert (await command(r,w,b'HELO example.test'))[0]==250
+       assert (await command(r,w,b'MAIL FROM:<alice@example.test>'))[0]>=500
+       assert h.events==[]
+       await ehlo(r,w)
+       assert (await command(r,w,b'MAIL FROM:<alice@example.test>'))[0]==250
+>    asyncio.run(scenario())
+
+..\verification\test_smtp_boundary.py:124: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    async def scenario():
+     async with server() as (r,w,h,p,c,_):
+      await ehlo(r,w);await upgrade(r,w,c)
+      assert (await command(r,w,b'HELO example.test'))[0]==250
+>     assert (await command(r,w,b'MAIL FROM:<alice@example.test>'))[0]>=500
+E     assert 250 >= 500
+
+..\verification\test_smtp_boundary.py:120: AssertionError
+=========================== short test summary info ===========================
+FAILED ..\verification\test_smtp_boundary.py::test_tls_discards_auth_and_pending_envelope
+FAILED ..\verification\test_smtp_boundary.py::test_helo_cannot_replace_required_post_tls_ehlo
+2 failed, 15 passed in 19.63s

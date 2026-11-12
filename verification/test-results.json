@@ -1,0 +1,26 @@
+{
+  "raw_regression": {
+    "passed": 471,
+    "skipped": 5,
+    "errors": 4,
+    "evidence": "verification/upstream-regression.json",
+    "all_passed": false
+  },
+  "isolated_resource_rechecks": {
+    "passed_distinct_nodes": 3,
+    "errors": 0,
+    "original_errors_excluded_from_model_score": true
+  },
+  "original_independent": {
+    "passed": 15,
+    "failed": 2,
+    "one_failure_was_test_sync_issue": true
+  },
+  "valid_synchronized_independent": {
+    "passed": 16,
+    "failed": 1,
+    "evidence": "verification/acceptance-r2/independent-protocol.json",
+    "failed_node": "test_helo_cannot_replace_required_post_tls_ehlo"
+  },
+  "ranges_not_summed_or_substituted": true
+}

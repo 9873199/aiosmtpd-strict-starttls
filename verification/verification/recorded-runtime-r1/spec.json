@@ -1,0 +1,64 @@
+{
+  "title": "SMTP TLS connection",
+  "directory": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\recording\\r1",
+  "cwd": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\frozen-artifact",
+  "capture": "wgc",
+  "environment": {
+    "PYTHONPATH": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\frozen-artifact",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "commands": [
+    {
+      "id": "smtp-example",
+      "label": "Local SMTP interaction",
+      "display": "python smtp-demo.py",
+      "argv": [
+        "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\tasks\\smtp\\env\\Scripts\\python.exe",
+        "-B",
+        "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\verification\\smtp-demo.py"
+      ],
+      "start_at_seconds": 0
+    },
+    {
+      "id": "boundary-checks",
+      "label": "Connection boundary checks",
+      "display": "python -m pytest test_smtp_boundary.py -v",
+      "argv": [
+        "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\tasks\\smtp\\env\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "pytest",
+        "-v",
+        "--tb=short",
+        "-o",
+        "addopts=",
+        "-p",
+        "no:cacheprovider",
+        "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\verification\\acceptance-r2\\test_smtp_boundary.py",
+        "--basetemp",
+        "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\recording\\r1\\tmp-boundary"
+      ],
+      "start_at_seconds": 20
+    },
+    {
+      "id": "product-checks",
+      "label": "STARTTLS compatibility checks",
+      "display": "python -m pytest aiosmtpd/tests/test_starttls.py -q",
+      "argv": [
+        "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\tasks\\smtp\\env\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "-o",
+        "addopts=--strict-markers -rfEX",
+        "-p",
+        "no:cacheprovider",
+        "aiosmtpd/tests/test_starttls.py",
+        "--basetemp",
+        "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\recording\\r1\\tmp-product"
+      ],
+      "start_at_seconds": 50
+    }
+  ]
+}

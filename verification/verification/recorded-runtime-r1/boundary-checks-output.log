@@ -1,0 +1,43 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-9.2.0, pluggy-1.7.0 -- D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Scripts\python.exe
+rootdir: D:\hc\userFeedback\cache\execution-security-new11-20261112
+plugins: mock-3.17.0
+collecting ... collected 17 items
+
+..\verification\acceptance-r2\test_smtp_boundary.py::test_normal_tls_and_delivery[True] PASSED [  5%]
+..\verification\acceptance-r2\test_smtp_boundary.py::test_normal_tls_and_delivery[False] PASSED [ 11%]
+..\verification\acceptance-r2\test_smtp_boundary.py::test_normal_tls_and_delivery[None] PASSED [ 17%]
+..\verification\acceptance-r2\test_smtp_boundary.py::test_prebuffered_cleartext_is_never_replayed[same-packet] PASSED [ 23%]
+..\verification\acceptance-r2\test_smtp_boundary.py::test_prebuffered_cleartext_is_never_replayed[split-command] PASSED [ 29%]
+..\verification\acceptance-r2\test_smtp_boundary.py::test_prebuffered_cleartext_is_never_replayed[during-transition] PASSED [ 35%]
+..\verification\acceptance-r2\test_smtp_boundary.py::test_tls_requires_fresh_ehlo[MAIL FROM:<alice@example.test>] PASSED [ 41%]
+..\verification\acceptance-r2\test_smtp_boundary.py::test_tls_requires_fresh_ehlo[AUTH PLAIN AGFsaWNlAHBhc3M=] PASSED [ 47%]
+..\verification\acceptance-r2\test_smtp_boundary.py::test_tls_requires_fresh_ehlo[RCPT TO:<bob@example.test>] PASSED [ 52%]
+..\verification\acceptance-r2\test_smtp_boundary.py::test_tls_discards_auth_and_pending_envelope PASSED [ 58%]
+..\verification\acceptance-r2\test_smtp_boundary.py::test_helo_cannot_replace_required_post_tls_ehlo FAILED [ 64%]
+..\verification\acceptance-r2\test_smtp_boundary.py::test_prebuffered_auth_is_not_logged PASSED [ 70%]
+..\verification\acceptance-r2\test_smtp_boundary.py::test_failed_handshake_cannot_resume_plain_smtp[invalid-clienthello] PASSED [ 76%]
+..\verification\acceptance-r2\test_smtp_boundary.py::test_failed_handshake_cannot_resume_plain_smtp[disconnect] PASSED [ 82%]
+..\verification\acceptance-r2\test_smtp_boundary.py::test_failed_handshake_cannot_resume_plain_smtp[cancel] PASSED [ 88%]
+..\verification\acceptance-r2\test_smtp_boundary.py::test_failed_handshake_cannot_resume_plain_smtp[timeout] PASSED [ 94%]
+..\verification\acceptance-r2\test_smtp_boundary.py::test_controller_forwards_explicit_option PASSED [100%]
+
+================================== FAILURES ===================================
+_______________ test_helo_cannot_replace_required_post_tls_ehlo _______________
+..\verification\acceptance-r2\test_smtp_boundary.py:126: in test_helo_cannot_replace_required_post_tls_ehlo
+    asyncio.run(scenario())
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+..\verification\acceptance-r2\test_smtp_boundary.py:122: in scenario
+    assert (await command(r,w,b'MAIL FROM:<alice@example.test>'))[0]>=500
+E   assert 250 >= 500
+=========================== short test summary info ===========================
+FAILED ..\verification\acceptance-r2\test_smtp_boundary.py::test_helo_cannot_replace_required_post_tls_ehlo
+======================== 1 failed, 16 passed in 19.79s ========================

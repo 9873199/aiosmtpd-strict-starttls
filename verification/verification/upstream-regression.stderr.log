@@ -1,0 +1,96 @@
+  + Exception Group Traceback (most recent call last):
+  |   File "<frozen runpy>", line 198, in _run_module_as_main
+  |   File "<frozen runpy>", line 88, in _run_code
+  |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\pytest\__main__.py", line 9, in <module>
+  |     raise SystemExit(_console_main())
+  |                      ~~~~~~~~~~~~~^^
+  |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\_pytest\config\__init__.py", line 286, in _console_main
+  |     code = _main(prog=_get_prog_name(sys.argv))
+  |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\_pytest\config\__init__.py", line 262, in _main
+  |     ret: ExitCode | int = config.hook.pytest_cmdline_main(config=config)
+  |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\pluggy\_caller.py", line 197, in __call__
+  |     return self._hookexec(
+  |            ~~~~~~~~~~~~~~^
+  |         self.name, self._hookimpls.copy(), call_kwargs, firstresult
+  |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |     )
+  |     ^
+  |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\pluggy\_manager.py", line 183, in _hookexec
+  |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  |            ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\pluggy\_execution.py", line 195, in _multicall
+  |     raise exception
+  |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\pluggy\_execution.py", line 147, in _multicall
+  |     res = hook_impl.function(*args)
+  |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\_pytest\main.py", line 380, in pytest_cmdline_main
+  |     return wrap_session(config, _main)
+  |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\_pytest\main.py", line 375, in wrap_session
+  |     config._ensure_unconfigure()
+  |     ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\_pytest\config\__init__.py", line 1377, in _ensure_unconfigure
+  |     self.hook.pytest_unconfigure(config=self)
+  |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\pluggy\_caller.py", line 197, in __call__
+  |     return self._hookexec(
+  |            ~~~~~~~~~~~~~~^
+  |         self.name, self._hookimpls.copy(), call_kwargs, firstresult
+  |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |     )
+  |     ^
+  |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\pluggy\_manager.py", line 183, in _hookexec
+  |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  |            ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\pluggy\_execution.py", line 195, in _multicall
+  |     raise exception
+  |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\pluggy\_execution.py", line 147, in _multicall
+  |     res = hook_impl.function(*args)
+  |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\_pytest\unraisableexception.py", line 169, in pytest_unconfigure
+  |     collect_unraisable(config)
+  |     ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\_pytest\unraisableexception.py", line 77, in collect_unraisable
+  |     raise ExceptionGroup("multiple unraisable exception warnings", errors)
+  | ExceptionGroup: multiple unraisable exception warnings (2 sub-exceptions)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py", line 760, in __del__
+    |     self.close()
+    |     ~~~~~~~~~~^^
+    |   File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\proactor_events.py", line 696, in close
+    |     self._close_self_pipe()
+    |     ~~~~~~~~~~~~~~~~~~~~~^^
+    |   File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\proactor_events.py", line 778, in _close_self_pipe
+    |     self._ssock.close()
+    |     ^^^^^^^^^^^
+    | AttributeError: 'ProactorEventLoop' object has no attribute '_ssock'
+    | 
+    | The above exception was the direct cause of the following exception:
+    | 
+    | Traceback (most recent call last):
+    |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\_pytest\unraisableexception.py", line 63, in collect_unraisable
+    |     warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+    |     ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    | pytest.PytestUnraisableExceptionWarning: Exception ignored while calling deallocator <function BaseEventLoop.__del__ at 0x00000276FC96FD70>: None
+    | 
+    +---------------- 2 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py", line 760, in __del__
+    |     self.close()
+    |     ~~~~~~~~~~^^
+    |   File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\proactor_events.py", line 696, in close
+    |     self._close_self_pipe()
+    |     ~~~~~~~~~~~~~~~~~~~~~^^
+    |   File "C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\proactor_events.py", line 778, in _close_self_pipe
+    |     self._ssock.close()
+    |     ^^^^^^^^^^^
+    | AttributeError: 'ProactorEventLoop' object has no attribute '_ssock'
+    | 
+    | The above exception was the direct cause of the following exception:
+    | 
+    | Traceback (most recent call last):
+    |   File "D:\hc\userFeedback\cache\execution-security-new11-20261112\tasks\smtp\env\Lib\site-packages\_pytest\unraisableexception.py", line 63, in collect_unraisable
+    |     warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+    |     ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    | pytest.PytestUnraisableExceptionWarning: Exception ignored while calling deallocator <function BaseEventLoop.__del__ at 0x00000276FC96FD70>: None
+    | 
+    +------------------------------------

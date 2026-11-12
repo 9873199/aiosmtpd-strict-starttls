@@ -1,0 +1,51 @@
+[
+  {
+    "id": "smtp-example",
+    "argv": [
+      "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\tasks\\smtp\\env\\Scripts\\python.exe",
+      "-B",
+      "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\verification\\smtp-demo.py"
+    ],
+    "exit_code": 0,
+    "finished_at_seconds": 4.84
+  },
+  {
+    "id": "boundary-checks",
+    "argv": [
+      "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\tasks\\smtp\\env\\Scripts\\python.exe",
+      "-B",
+      "-m",
+      "pytest",
+      "-v",
+      "--tb=short",
+      "-o",
+      "addopts=",
+      "-p",
+      "no:cacheprovider",
+      "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\verification\\acceptance-r2\\test_smtp_boundary.py",
+      "--basetemp",
+      "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\recording\\r1\\tmp-boundary"
+    ],
+    "exit_code": 1,
+    "finished_at_seconds": 41.84
+  },
+  {
+    "id": "product-checks",
+    "argv": [
+      "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\tasks\\smtp\\env\\Scripts\\python.exe",
+      "-B",
+      "-m",
+      "pytest",
+      "-q",
+      "-o",
+      "addopts=--strict-markers -rfEX",
+      "-p",
+      "no:cacheprovider",
+      "aiosmtpd/tests/test_starttls.py",
+      "--basetemp",
+      "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\recording\\r1\\tmp-product"
+    ],
+    "exit_code": 0,
+    "finished_at_seconds": 55.99
+  }
+]

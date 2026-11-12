@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="17" time="19.577" timestamp="2026-11-12T22:42:05.701728+08:00" hostname="DESKTOP-BPAMAV8"><testcase classname="evaluation.uf-20261112-new15-smtp.verification.test_smtp_boundary" name="test_normal_tls_and_delivery[True]" time="1.538" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.test_smtp_boundary" name="test_normal_tls_and_delivery[False]" time="1.066" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.test_smtp_boundary" name="test_normal_tls_and_delivery[None]" time="1.098" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.test_smtp_boundary" name="test_prebuffered_cleartext_is_never_replayed[same-packet]" time="1.214" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.test_smtp_boundary" name="test_prebuffered_cleartext_is_never_replayed[split-command]" time="1.073" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.test_smtp_boundary" name="test_prebuffered_cleartext_is_never_replayed[during-transition]" time="1.021" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.test_smtp_boundary" name="test_tls_requires_fresh_ehlo[MAIL FROM:&lt;alice@example.test&gt;]" time="1.023" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.test_smtp_boundary" name="test_tls_requires_fresh_ehlo[AUTH PLAIN AGFsaWNlAHBhc3M=]" time="1.001" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.test_smtp_boundary" name="test_tls_requires_fresh_ehlo[RCPT TO:&lt;bob@example.test&gt;]" time="1.023" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.test_smtp_boundary" name="test_tls_discards_auth_and_pending_envelope" time="1.034"><failure message="assert (True is not True)&#10; +  where True = &lt;aiosmtpd.smtp.Session object at 0x0000019F2A62E990&gt;.authenticated&#10; +    where &lt;aiosmtpd.smtp.Session object at 0x0000019F2A62E990&gt; = &lt;test_smtp_boundary.server.&lt;locals&gt;.Protocol object at 0x0000019F2A6163C0&gt;.session">def test_tls_discards_auth_and_pending_envelope():
+     async def scenario():
+      async with server() as (r,w,h,p,c,_):
+       await ehlo(r,w)
+       assert (await command(r,w,b'AUTH PLAIN AGFsaWNlAHBhc3M='))[0]==235
+       assert (await command(r,w,b'MAIL FROM:&lt;old@example.test&gt;'))[0]==250
+       assert (await command(r,w,b'RCPT TO:&lt;old-target@example.test&gt;'))[0]==250
+       await upgrade(r,w,c)
+       assert p.session.authenticated is not True and p.session.auth_data is None
+       assert not p.session.host_name and not p.envelope.mail_from and not p.envelope.rcpt_tos
+       await ehlo(r,w)
+       assert (await command(r,w,b'RCPT TO:&lt;new@example.test&gt;'))[0]==503
+       assert not any(e[0]=='DATA' for e in h.events)
+&gt;    asyncio.run(scenario())
+
+..\verification\test_smtp_boundary.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    async def scenario():
+     async with server() as (r,w,h,p,c,_):
+      await ehlo(r,w)
+      assert (await command(r,w,b'AUTH PLAIN AGFsaWNlAHBhc3M='))[0]==235
+      assert (await command(r,w,b'MAIL FROM:&lt;old@example.test&gt;'))[0]==250
+      assert (await command(r,w,b'RCPT TO:&lt;old-target@example.test&gt;'))[0]==250
+      await upgrade(r,w,c)
+&gt;     assert p.session.authenticated is not True and p.session.auth_data is None
+E     assert (True is not True)
+E      +  where True = &lt;aiosmtpd.smtp.Session object at 0x0000019F2A62E990&gt;.authenticated
+E      +    where &lt;aiosmtpd.smtp.Session object at 0x0000019F2A62E990&gt; = &lt;test_smtp_boundary.server.&lt;locals&gt;.Protocol object at 0x0000019F2A6163C0&gt;.session
+
+..\verification\test_smtp_boundary.py:108: AssertionError</failure></testcase><testcase classname="evaluation.uf-20261112-new15-smtp.verification.test_smtp_boundary" name="test_helo_cannot_replace_required_post_tls_ehlo" time="1.035"><failure message="assert 250 &gt;= 500">def test_helo_cannot_replace_required_post_tls_ehlo():
+     async def scenario():
+      async with server() as (r,w,h,p,c,_):
+       await ehlo(r,w);await upgrade(r,w,c)
+       assert (await command(r,w,b'HELO example.test'))[0]==250
+       assert (await command(r,w,b'MAIL FROM:&lt;alice@example.test&gt;'))[0]&gt;=500
+       assert h.events==[]
+       await ehlo(r,w)
+       assert (await command(r,w,b'MAIL FROM:&lt;alice@example.test&gt;'))[0]==250
+&gt;    asyncio.run(scenario())
+
+..\verification\test_smtp_boundary.py:124: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:204: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\runners.py:127: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Administrator\AppData\Local\Programs\Python\Python314\Lib\asyncio\base_events.py:719: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    async def scenario():
+     async with server() as (r,w,h,p,c,_):
+      await ehlo(r,w);await upgrade(r,w,c)
+      assert (await command(r,w,b'HELO example.test'))[0]==250
+&gt;     assert (await command(r,w,b'MAIL FROM:&lt;alice@example.test&gt;'))[0]&gt;=500
+E     assert 250 &gt;= 500
+
+..\verification\test_smtp_boundary.py:120: AssertionError</failure></testcase><testcase classname="evaluation.uf-20261112-new15-smtp.verification.test_smtp_boundary" name="test_prebuffered_auth_is_not_logged" time="1.065" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.test_smtp_boundary" name="test_failed_handshake_cannot_resume_plain_smtp[invalid-clienthello]" time="1.024" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.test_smtp_boundary" name="test_failed_handshake_cannot_resume_plain_smtp[disconnect]" time="1.097" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.test_smtp_boundary" name="test_failed_handshake_cannot_resume_plain_smtp[cancel]" time="1.022" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.test_smtp_boundary" name="test_failed_handshake_cannot_resume_plain_smtp[timeout]" time="1.500" /><testcase classname="evaluation.uf-20261112-new15-smtp.verification.test_smtp_boundary" name="test_controller_forwards_explicit_option" time="0.965" /></testsuite></testsuites>

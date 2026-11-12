@@ -1,0 +1,13 @@
+{
+  "time": "2026-11-12T22:48:49+08:00",
+  "argv": [
+    "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\tasks\\smtp\\env\\Scripts\\python.exe",
+    "-B",
+    "-c",
+    "import aiosmtpd,sys,platform,json; print(json.dumps({\"python\":sys.version,\"executable\":sys.executable,\"platform\":platform.platform(),\"module\":aiosmtpd.__file__}))"
+  ],
+  "cwd": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\frozen-artifact",
+  "exit_code": 0,
+  "stdout_log": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\environment-import.stdout.log",
+  "stderr_log": "D:\\hc\\userFeedback\\cache\\execution-security-new11-20261112\\evaluation\\uf-20261112-new15-smtp\\environment-import.stderr.log"
+}
