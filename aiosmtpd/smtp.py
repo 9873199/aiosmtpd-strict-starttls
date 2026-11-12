@@ -330,6 +330,7 @@ class SMTP(asyncio.StreamReaderProtocol):
             ident: Optional[str] = None,
             tls_context: Optional[ssl.SSLContext] = None,
             require_starttls: bool = False,
+            strict_starttls: bool = False,
             timeout: float = 300,
             auth_required: bool = False,
             auth_require_tls: bool = True,
@@ -367,11 +368,19 @@ class SMTP(asyncio.StreamReaderProtocol):
                 log.warning("tls_context.check_hostname == True; "
                             "this might cause client connection problems")
         self.require_starttls = tls_context and require_starttls
+        # strict_starttls only has an effect together with a tls_context, but
+        # remember the requested value so the attribute always reflects input.
+        self.strict_starttls = strict_starttls
         self._timeout_duration = timeout
         self._timeout_handle: Optional[asyncio.TimerHandle] = None
         self._tls_handshake_okay = True
         self._tls_protocol: Optional[sslproto.SSLProtocol] = None
         self._original_transport: Optional[asyncio.BaseTransport] = None
+        # Set when strict_starttls aborts a connection. Task cancellation
+        # alone is not enough: buffered StreamReader lines are returned
+        # without suspending, so pipelined commands could still be dispatched
+        # before the CancelledError lands. The command loop checks this flag.
+        self._tls_violation_close = False
         self.session: Optional[Session] = None
         self.envelope: Optional[Envelope] = None
         self.transport: Optional[asyncio.BaseTransport] = None
@@ -509,6 +518,11 @@ class SMTP(asyncio.StreamReaderProtocol):
         seen_starttls = (self._original_transport is not None)
         if self.transport is not None and seen_starttls:
             # It is STARTTLS connection over normal connection.
+            # Capture any plaintext the client sent ahead of the handshake
+            # BEFORE touching the buffer; in strict mode such a connection is
+            # unsalvageable because the bytes can neither be replayed as SMTP
+            # commands nor fed to the SSL layer (RFC 3207 §4.1).
+            pread_data = self._tls_pread_data()
             self._reader._transport = transport  # type: ignore[attr-defined]
             self._writer._transport = transport  # type: ignore[attr-defined]
             self.transport = transport
@@ -525,6 +539,18 @@ class SMTP(asyncio.StreamReaderProtocol):
             else:
                 self._tls_handshake_okay = hook(
                     self, self.session, self.envelope)
+            # The fresh Session above and _set_rset_state() at the top of this
+            # method already implement RFC 3207 §4.2: pre-TLS EHLO, AUTH state,
+            # and any unfinished transaction are forgotten once TLS starts.
+            if self.strict_starttls and pread_data:
+                # The client had already sent commands in the clear when it
+                # was supposed to wait for the handshake. Close without ever
+                # processing those bytes as SMTP traffic.
+                log.warning(
+                    "%r strict_starttls: dropping connection, %d byte(s) of "
+                    "plaintext data were already buffered when TLS started",
+                    self.session.peer, len(pread_data))
+                self._abort_tls_violation()
         else:
             super().connection_made(transport)
             self.transport = transport
@@ -595,6 +621,29 @@ class SMTP(asyncio.StreamReaderProtocol):
         """Reset all state variables except the greeting."""
         self._set_post_data_state()
 
+    def _tls_pread_data(self) -> bytes:
+        """
+        Return unencrypted client bytes already buffered in the StreamReader
+        at the moment the TLS layer is being installed. Such bytes arrived
+        before the 220 reply could be acted on (or were pipelined after
+        STARTTLS) and must never be replayed into SMTP or handed to OpenSSL.
+        """
+        return bytes(self._reader._buffer)  # type: ignore[attr-defined]
+
+    def _abort_tls_violation(self) -> None:
+        """
+        Tear down a connection that violated strict_starttls. The handler
+        coroutine is cancelled exactly like smtp_QUIT() does, and the guard
+        flag is raised so that any SMTP command still buffered in the
+        StreamReader (which readuntil() can hand back without suspending) is
+        refused instead of being dispatched or reaching a delivery handler.
+        """
+        self._tls_violation_close = True
+        assert self._handler_coroutine is not None
+        self._handler_coroutine.cancel()
+        assert self.transport is not None
+        self.transport.close()
+
     async def push(self, status: AnyStr):
         if isinstance(status, str):
             response = bytes(
@@ -652,6 +701,14 @@ class SMTP(asyncio.StreamReaderProtocol):
         bogus_budget = BOGUS_LIMIT
 
         while self.transport is not None:   # pragma: nobranch
+            if self._tls_violation_close:
+                # strict_starttls already condemned this connection. Do not
+                # dispatch buffered (pipelined) commands; stop here so no
+                # AUTH/envelope/DATA handler can be invoked.
+                log.info(
+                    '%r discarding command after strict_starttls abort',
+                    self.session.peer)
+                break
             try:
                 try:
                     line: bytes = await self._reader.readuntil()
@@ -916,6 +973,19 @@ class SMTP(asyncio.StreamReaderProtocol):
             return
         if not self.tls_context:
             await self.push('454 TLS not available')
+            return
+        # RFC 3207 requires the client to wait for this 220 response before
+        # starting the handshake. Anything already buffered at this point has
+        # been sent "in the clear" ahead of time; strict_starttls will reject
+        # the whole connection (see connection_made()) rather than let the
+        # data cross the TLS boundary.
+        pre_tls_buffer = self._tls_pread_data()
+        if self.strict_starttls and pre_tls_buffer:
+            log.warning(
+                "%r strict_starttls: %d byte(s) of plaintext data already "
+                "buffered before STARTTLS was acknowledged; refusing TLS",
+                self.session.peer, len(pre_tls_buffer))
+            self._abort_tls_violation()
             return
         await self.push('220 Ready to start TLS')
         # Create a waiter Future to wait for SSL handshake to complete

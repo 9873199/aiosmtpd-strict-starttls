@@ -10,6 +10,14 @@
 Fixed/Improved
 --------------
 
+* Added an opt-in ``strict_starttls`` mode to the SMTP class (and a matching
+  ``--strict-starttls`` CLI flag). When enabled, plaintext data already
+  buffered at the STARTTLS boundary — such as pipelined ``MAIL``/``RCPT``
+  commands — causes the connection to be dropped instead of crossing into
+  the TLS session; after a successful handshake the pre-TLS EHLO,
+  authentication state, and unfinished mail transaction are reset, and a
+  failed/cancelled handshake never reaches a delivery handler or leaves a
+  plaintext command channel open.
 * Dropped Python 3.8, PyPy 3.8
 * Added PyPy 3.11, dropped PyPy 3.9
 * The ``authenticated_relayer`` example now stores a per-user salt and uses it

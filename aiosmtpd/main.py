@@ -158,6 +158,20 @@ def _parser() -> ArgumentParser:
         ),
     )
     parser.add_argument(
+        "--strict-starttls",
+        dest="strict_starttls",
+        default=False,
+        action="store_true",
+        help=(
+            "If specified, enables ``strict_starttls`` of the SMTP class: a "
+            "connection is dropped if the client sends plaintext data (e.g. "
+            "pipelined MAIL/RCPT commands) before the STARTTLS handshake has "
+            "completed, and the pre-TLS EHLO/AUTH/transaction state is fully "
+            "reset after TLS starts. "
+            "Has no effect if ``--tlscert`` and ``--tlskey`` are not specified."
+        ),
+    )
+    parser.add_argument(
         "classargs",
         metavar="CLASSARGS",
         nargs="*",
@@ -247,6 +261,7 @@ def main(args: Optional[Sequence[str]] = None) -> None:
         enable_SMTPUTF8=ns.smtputf8,
         tls_context=tls_context,
         require_starttls=ns.requiretls,
+        strict_starttls=ns.strict_starttls,
     )
 
     logging.basicConfig(level=logging.ERROR)

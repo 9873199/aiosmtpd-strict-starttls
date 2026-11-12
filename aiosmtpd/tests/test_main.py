@@ -244,6 +244,7 @@ class TestParseArgs:
         assert args.tlscert is None
         assert args.tlskey is None
         assert args.requiretls is True
+        assert args.strict_starttls is False
 
     def test_handler_from_cli(self):
         parser, args = parseargs(
@@ -325,6 +326,13 @@ class TestParseArgs:
         mocker.patch("aiosmtpd.main.PROGRAM", "smtpd")
         parser, args = parseargs(("--no-requiretls",))
         assert args.requiretls is False
+
+    def test_strict_starttls(self, capsys, mocker):
+        mocker.patch("aiosmtpd.main.PROGRAM", "smtpd")
+        parser, args = parseargs(("--strict-starttls",))
+        assert args.strict_starttls is True
+        # The flag is orthogonal to requiretls.
+        assert args.requiretls is True
 
     @pytest.mark.parametrize(
         ("certfile_present", "keyfile_present", "expect"),

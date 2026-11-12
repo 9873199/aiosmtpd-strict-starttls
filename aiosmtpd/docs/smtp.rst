@@ -160,7 +160,7 @@ aiosmtpd.smtp
 
 .. class:: SMTP(handler, *, data_size_limit=33554432, enable_SMTPUTF8=False, \
    decode_data=False, hostname=None, ident=None, tls_context=None, \
-   require_starttls=False, timeout=300, auth_required=False, \
+   require_starttls=False, strict_starttls=False, timeout=300, auth_required=False, \
    auth_require_tls=True, auth_exclude_mechanism=None, auth_callback=None, \
    authenticator=None, command_call_limit=None, \
    proxy_protocol_timeout=None, \
@@ -237,6 +237,34 @@ aiosmtpd.smtp
 
       "Restricted" ESMTP commands are all commands not in the set
       ``{"NOOP", "EHLO", "STARTTLS", "QUIT"}``
+
+   .. py:attribute:: strict_starttls
+      :type: bool
+      :value: False
+      :noindex:
+
+      Opt-in enforcement of the :rfc:`3207` STARTTLS boundary. Has no effect
+      unless :attr:`tls_context` is also provided.
+
+      When ``True``:
+
+      * If the client has already sent plaintext data (for example pipelined
+        ``MAIL``/``RCPT`` commands) when ``STARTTLS`` is received, or when the
+        TLS handshake actually starts, the connection is closed immediately.
+        Those buffered bytes are never replayed as SMTP commands and never
+        handed to the TLS layer, so they cannot become a message "sent inside
+        TLS".
+      * After the handshake completes, the pre-TLS ``EHLO``/``HELO`` state,
+        any authentication state, and any unfinished mail transaction are
+        discarded. The client must issue a fresh ``EHLO`` inside TLS before it
+        can authenticate or deliver mail.
+      * A cancelled, timed-out, or failed handshake never invokes a delivery
+        handler and never leaves a plaintext connection that still accepts
+        commands.
+
+      When ``False`` (the default), the historical, more lenient behavior is
+      retained: stray bytes buffered across the STARTTLS boundary are silently
+      discarded, but the connection is not rejected.
 
    .. py:attribute:: timeout
       :type: Union[int, float]
@@ -443,6 +471,11 @@ aiosmtpd.smtp
       True if both the *tls_context* argument to the constructor was given
       **and** the *require_starttls* flag was True.
 
+   .. attribute:: strict_starttls
+
+      The value of the *strict_starttls* argument passed into the constructor.
+      See the parameter description above for the enforced behavior.
+
    .. attribute:: session
 
       The active :ref:`session <sessions_and_envelopes>` object, if there is
@@ -584,6 +617,47 @@ If *tls_context* is not supplied, the ``STARTTLS`` option will not be
 advertised, and the ``STARTTLS`` command will not be accepted.
 *require_starttls* is meaningless in this case, and should be set to
 ``False``.
+
+Strict STARTTLS
+---------------
+
+A client is supposed to wait for the server's ``220 Ready to start TLS``
+reply and then begin the TLS handshake. A misbehaving (or deliberately
+smuggling) client may instead pipeline further commands — ``MAIL``,
+``RCPT``, even ``AUTH`` — into the same plaintext segment as ``STARTTLS``,
+so those bytes are already buffered on the server before the handshake
+starts. Such bytes must never be interpreted as SMTP commands *after*
+encryption begins.
+
+Set *strict_starttls* to ``True`` to reject those connections outright and
+to guarantee the :rfc:`3207` §4.2 state reset. When strict mode is on and
+plaintext data has already been buffered at the STARTTLS boundary, the
+server closes the connection without replying and without invoking any
+delivery handler. After a successful handshake the previous ``EHLO``,
+authentication state, and unfinished transaction are discarded, so the
+client must send a fresh ``EHLO`` inside TLS before authenticating or
+sending mail. A failed, cancelled, or timed-out handshake likewise ends the
+connection; it never leaves a plaintext channel that keeps accepting
+commands.
+
+The option is off by default to preserve the historical lenient behavior
+(stray bytes are discarded, but the connection is not rejected).
+
+It is a plain keyword argument of the :class:`SMTP` class, and the
+:class:`~aiosmtpd.controller.Controller` forwards any extra keyword
+arguments to it, so enabling it through a controller is simply::
+
+    from aiosmtpd.controller import Controller
+
+    controller = Controller(
+        handler,
+        tls_context=context,
+        strict_starttls=True,
+    )
+
+When running the bundled command-line server, the equivalent is the
+``--strict-starttls`` flag (only effective together with ``--tlscert`` and
+``--tlskey``).
 
 .. _`asyncio transport`: https://docs.python.org/3/library/asyncio-protocol.html#asyncio-transport
 .. _StreamReaderProtocol: https://docs.python.org/3/library/asyncio-stream.html#streamreaderprotocol
